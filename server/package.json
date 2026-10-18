@@ -1,0 +1,48 @@
+{
+  "name": "api-monitoring-ai-alerts",
+  "version": "1.0.0",
+  "description": "API Monitoring + anomaly detection + AI-generated alerts",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "processor": "node src/services/processor/consumer.js",
+    "lint": "node init-system.js",
+    "init:env": "node init-system.js --generate-env",
+    "test": "node --test",
+    "seed:admin": "node scripts/seed-admin.js",
+    "send:sample": "node scripts/send-sample.js"
+  },
+  "keywords": [
+    "api",
+    "monitoring",
+    "tracking",
+    "analytics"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.0",
+    "pg": "^8.11.3",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0",
+    "zod": "^4.3.6",
+    "nodemailer": "^6.9.14"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
