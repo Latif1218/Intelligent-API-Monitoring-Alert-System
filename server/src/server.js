@@ -14,6 +14,7 @@ import cookieParser from "cookie-parser"
 // Routers
 import authRouter from "./services/auth/routes/authRouter.js";
 import clientRouter from './services/client/routes/clientRoutes.js';
+import ingestRouter from "./services/ingest/routes/ingestRoutes.js"
 
 
 /**
@@ -102,6 +103,7 @@ app.use((req, res) => {
  */
 app.use("/api/auth", authRouter);
 app.use("/api", clientRouter)
+app.use("/api/hit", ingestRouter);
 
 
 
