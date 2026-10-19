@@ -31,6 +31,20 @@ services:
       - api-monitoring-network
     restart: unless-stopped
 
+  mongo-express:
+    image: mongo-express:latest
+    container_name: api-monitoring-mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      - mongo
+    networks:
+      - api-monitoring-network
+    restart: unless-stopped
+
   # RabbitMQ Message Queue
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -96,6 +110,18 @@ services:
       # Rate Limiting
       RATE_LIMIT_WINDOW_MS: 60000
       RATE_LIMIT_MAX_REQUESTS: 100
+      # Anomaly detection + AI alerts
+      REQUIRE_FULL_STACK: "true"
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      MONITOR_API_KEY: ${MONITOR_API_KEY:-}
+      ALERT_EMAIL_ENABLED: ${ALERT_EMAIL_ENABLED:-false}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-api-monitor@example.com}
+      ALERT_EMAIL_TO: ${ALERT_EMAIL_TO:-}
       
     ports:
       - "5000:5000"

@@ -50,7 +50,43 @@ const config = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         expiresIn: 24 * 60 * 60 * 1000
-    }
+    },
+
+
+    requireFullStack: process.env.REQUIRE_FULL_STACK === 'true',
+
+
+    // Anomaly detection & alerts 
+    alerts: {
+        thresholds: {
+            warnResponseMs: parseInt(process.env.ALERT_WARN_RESPONSE_MS || '2000', 10),
+            criticalResponseMs: parseInt(process.env.ALERT_CRITICAL_RESPONSE_MS || '5000', 10),
+        },
+        dedupeWindowMinutes: parseInt(process.env.ALERT_DEDUPE_WINDOW_MIN || '10', 10),
+        maxBatchSize: parseInt(process.env.MONITOR_MAX_BATCH || '500', 10),
+        monitorApiKey: process.env.MONITOR_API_KEY || '', 
+    },
+
+
+    // LLms (Openai | none)
+    llm: {
+        provider: (process.env.LLM_PROVIDER || (process.env.LLM_API_KEY || process.env.OPENAI_API_KEY ? 'openai' : 'none')).toLowerCase(),
+        apiKey: process.env.LLM_API_KEY || process.env.OPENAI_API_KEY || '',
+        model: process.env.LLM_MODEL || '',
+        timeoutMs: parseInt(process.env.LLM_TIMEOUT_MS || '8000', 10),
+        retries: parseInt(process.env.LLM_RETRIES || '2', 10),
+    },
+
+    // For Email notifications
+    smtp: {
+        enabled: process.env.ALERT_EMAIL_ENABLED === 'true',
+        host: process.env.SMTP_HOST || '',
+        port: parseInt(process.env.SMTP_PORT || '587', 10),
+        user: process.env.SMTP_USER || '',
+        pass: process.env.SMTP_PASS || '',
+        from: process.env.SMTP_FROM || 'api-monitor@localhost',
+        to: process.env.ALERT_EMAIL_TO || '',
+    },
 
 }
 export default config;

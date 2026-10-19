@@ -15,6 +15,9 @@ import cookieParser from "cookie-parser"
 import authRouter from "./services/auth/routes/authRouter.js";
 import clientRouter from './services/client/routes/clientRoutes.js';
 import ingestRouter from "./services/ingest/routes/ingestRoutes.js"
+import analyticsRouter from "./services/analytics/routes/analyticsRoutes.js"
+import alertRouter from "./services/alerts/routes/alertRoutes.js";
+import monitorRouter from "./services/monitor/routes/monitorRoutes.js";
 
 
 /**
@@ -90,20 +93,32 @@ app.get("/", (req, res) => {
 });
 
 
+
+
+
+/**
+ * API Routes
+ */
+
+app.use("/api/auth", authRouter);
+app.use("/api/hit", ingestRouter);
+app.use("/api/analytics", analyticsRouter)
+
+// Anomaly detection + AI alerts. Mounted BEFORE clientRouter because clientRouter
+// applies JWT auth to every /api/* path. Plain aliases (/monitor, /alerts) match the task spec.
+app.use(["/api/monitor", "/monitor"], monitorRouter)
+app.use(["/api/alerts", "/alerts"], alertRouter)
+
+app.use("/api", clientRouter)
+
+
+
 /**
   1. 404 Handler
  */
 app.use((req, res) => {
     res.status(404).json(ResponseFormatter.error("Endpoint not found", 404))
 })
-
-
-/**
- * API Routes
- */
-app.use("/api/auth", authRouter);
-app.use("/api", clientRouter)
-app.use("/api/hit", ingestRouter);
 
 
 
