@@ -218,4 +218,4 @@ npm test
 
 ## 7. Credits & learning resources
 
-- Code-architecture tutorials by **[Channel Name](https://www.youtube.com/)**.
+- Code-architecture tutorials by **[Code Architecture]([https://www.youtube.com/](https://www.youtube.com/@CodeArchitectureWithRahul))**.
