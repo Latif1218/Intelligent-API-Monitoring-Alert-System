@@ -284,4 +284,4 @@ curl -X POST http://localhost:5000/api/auth/onboard-super-admin \
 
 ## 8. Credits & learning resources
 
-- Code-architecture tutorials by **[Channel Name](https://www.youtube.com/)** helped shape the layered structure used in this project.
+- Code-architecture tutorials by **[Code Architecture]([https://www.youtube.com/](https://www.youtube.com/@CodeArchitectureWithRahul))** helped shape the layered structure used in this project.

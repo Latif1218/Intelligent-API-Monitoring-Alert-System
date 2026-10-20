@@ -193,4 +193,4 @@ Then call its endpoints (e.g. `GET http://localhost:3002/api/posts`) and watch t
 
 ## 7. Credits & learning resources
 
-- Code-architecture tutorials by **[Channel Name](https://www.youtube.com/)**.
+- Code-architecture tutorials by **[Code Architecture](https://www.youtube.com/@CodeArchitectureWithRahul)**.
