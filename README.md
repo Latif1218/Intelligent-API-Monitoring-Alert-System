@@ -511,6 +511,6 @@ Uses Node's built-in test runner. Covered: every anomaly rule (including the ass
 
 ## 17. Credits & license
 
-- Architecture and clean-code learning resources: **[Channel Name](https://www.youtube.com/)** (YouTube).
+- Architecture and clean-code learning resources: **[Code Architecture](https://www.youtube.com/@CodeArchitectureWithRahul)** (YouTube).
 - Runtime AI: OpenAI API for alert text generation.
 - License: [MIT](LICENSE) © 2026 Mds Abdul Latif
