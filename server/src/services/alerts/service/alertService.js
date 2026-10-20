@@ -69,6 +69,24 @@ export class AlertService {
     }
 
 
+    /** Email setup (masked) + counters, for the dashboard "Notifications" page. */
+    async getEmailStatus() {
+        const stats = await this.repo.stats();
+        return { ...this.email.describe(), sent: stats.emailSent, failed: stats.emailFailed };
+    }
+
+    /** Sends a test email; never throws a raw SMTP error to the client. */
+    async sendTestEmail() {
+        try {
+            await this.email.sendTest();
+            return { sent: true, message: 'Test email sent. Check the inbox of ALERT_EMAIL_TO.' };
+        } catch (err) {
+            this.logger.error('Test email failed', { error: err.message });
+            return { sent: false, message: err.message };
+        }
+    }
+
+
     async resolveAlert(id) {
         if (!mongoose.isValidObjectId(id)) throw new AppError('Invalid alert id', 400);
         const alert = await this.repo.resolve(id);

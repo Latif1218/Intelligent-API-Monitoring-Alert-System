@@ -11,6 +11,9 @@ const { clientController } = clientDependencies.controller
 // Apply authentication middleware to all routes in this router
 router.use(authenticate);
 
+// List clients (super admin: all, client users: their own)
+router.get("/admin/clients", (req, res, next) => clientController.listClients(req, res, next))
+
 // Onboard a new client
 router.post("/admin/clients/onboard", (req, res, next) => clientController.createClient(req, res, next))
 

@@ -24,6 +24,23 @@ export class AlertController {
         }
     }
 
+    async emailStatus(req, res, next) {
+        try {
+            res.status(200).json(ResponseFormatter.success(await this.alertService.getEmailStatus(), 'Email status'));
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async emailTest(req, res, next) {
+        try {
+            const result = await this.alertService.sendTestEmail();
+            res.status(200).json(ResponseFormatter.success(result, result.message));
+        } catch (err) {
+            next(err);
+        }
+    }
+
     async resolve(req, res, next) {
         try {
             const alert = await this.alertService.resolveAlert(req.params.id);

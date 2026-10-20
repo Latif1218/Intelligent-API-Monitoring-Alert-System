@@ -104,6 +104,29 @@ export class ClientService {
      * @param {String} clientId - The client ID
      * @returns {Boolean} - True if the user has access, false otherwise
      */
+    /**
+     * List clients. Super admin sees all clients; client users only see their own.
+     */
+    async listClients(user) {
+        try {
+            if (user.role === APPLICATION_ROLES.SUPER_ADMIN) {
+                return await this.clientRepository.find({}, { limit: 200 });
+            }
+            if (!user.clientId) return [];
+            const own = await this.clientRepository.findById(user.clientId);
+            return own ? [own] : [];
+        } catch (error) {
+            logger.error('Error listing clients:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Check if a user has access to a specific client
+     * @param {Object} user - The user object
+     * @param {String} clientId - The client ID
+     * @returns {Boolean} - True if the user has access, false otherwise
+     */
     canUserAccessClient(user, clientId) {
         if (user.role === APPLICATION_ROLES.SUPER_ADMIN) {
             return true

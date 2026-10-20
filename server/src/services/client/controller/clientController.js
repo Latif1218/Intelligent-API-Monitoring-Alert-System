@@ -26,6 +26,19 @@ export class ClientController {
 
 
     /**
+     * List clients visible to the logged-in user.
+     */
+    async listClients(req, res, next) {
+        try {
+            const clients = await this.clientService.listClients(req.user);
+            return res.status(200).json(ResponseFormatter.success(clients, "Clients fetched successfully", 200))
+        } catch (error) {
+            next(error)
+        }
+    }
+
+
+    /**
      * Create a new client, only accessible by super admins
      * @param {Request} req - Express request object
      * @param {Response} res - Express response object

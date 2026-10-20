@@ -64,6 +64,10 @@ export class AlertRepository {
     markEmailSent(id) {
         return Alert.findByIdAndUpdate(id, { $set: { emailSent: true } });
     }
+
+    markEmailFailed(id, message) {
+        return Alert.findByIdAndUpdate(id, { $set: { emailSent: false, emailError: String(message).slice(0, 300) } });
+    }
 }
 
 export default new AlertRepository();
